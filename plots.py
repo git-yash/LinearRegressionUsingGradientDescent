@@ -1,6 +1,5 @@
 import os
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 
 from LinearRegressionUsingGradientDescent import LinearRegressionUsingGradientDescent
@@ -17,11 +16,10 @@ FEATURE_NAMES = [
     "pH", "sulphates", "alcohol"
 ]
 
-# Train once, reuse everywhere
 model = LinearRegressionUsingGradientDescent(learning_rate=BEST_LR, num_iterations=BEST_ITERS)
 model.fit(X_train, y_train)
 
-# ---- Plot 1: MSE vs iterations (linear) ----
+#MSE vs iterations (linear)
 plt.figure(figsize=(8, 5))
 plt.plot(model.mseHistory)
 plt.xlabel("Iteration")
@@ -32,7 +30,7 @@ plt.tight_layout()
 plt.savefig("plots/mse_vs_iterations.png", dpi=150)
 plt.close()
 
-# ---- Plot 1b: MSE vs iterations (log) ----
+#MSE vs iterations (log)
 plt.figure(figsize=(8, 5))
 plt.plot(model.mseHistory)
 plt.yscale("log")
@@ -44,7 +42,7 @@ plt.tight_layout()
 plt.savefig("plots/mse_vs_iterations_log.png", dpi=150)
 plt.close()
 
-# ---- Plot 2: Learning rate comparison ----
+#Learning rate comparison
 plt.figure(figsize=(9, 5))
 for lr in [0.0001, 0.001, 0.01, 0.1]:
     m = LinearRegressionUsingGradientDescent(learning_rate=lr, num_iterations=1000)
@@ -60,7 +58,7 @@ plt.tight_layout()
 plt.savefig("plots/lr_comparison.png", dpi=150)
 plt.close()
 
-# ---- Plot 3: Predicted vs actual ----
+#Predicted vs actual
 y_pred = model.predict(X_test)
 plt.figure(figsize=(7, 7))
 plt.scatter(y_test, y_pred, alpha=0.4, edgecolor="k", linewidth=0.3)
@@ -77,7 +75,7 @@ plt.tight_layout()
 plt.savefig("plots/predicted_vs_actual.png", dpi=150)
 plt.close()
 
-# ---- Plot 4: Feature weights ----
+#Feature weights
 weights = model.weights
 order = np.argsort(np.abs(weights))
 sorted_names = [FEATURE_NAMES[i] for i in order]
